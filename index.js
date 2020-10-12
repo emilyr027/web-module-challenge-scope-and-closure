@@ -27,8 +27,10 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
+ * The variable count is inside the function in counter1 and before the function in counter2. In counter1, the function counterMaker() has able to access the local variable count.
  * 
  * 2. Which of the two uses a closure? How can you tell?
+ * Counter 1 uses a closure. It has a function within a function and it references a local variable. 
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
  *
@@ -56,11 +58,10 @@ function counter2() {
 
 Write a function called `inning` that returns a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+function inning(){
+  return Math.floor(Math.random() * 2);
 }
+console.log(inning());
 
 /* Task 3: finalScore()
 
@@ -76,11 +77,14 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
+function finalScore(numInnings, inning){
+  let inningScore = {"Home": 0, "Away": 0}
+  for (let i = 1; i<= numInnings; i++) {
+    inningScore["Home"] += inning();
+   inningScore["Away"] += inning();
+  } return inningScore;
 }
+console.log(finalScore(9, 9));
 
 /* Task 4: 
 
@@ -103,8 +107,18 @@ and returns the score at each pont in the game, like so:
 Final Score: awayTeam - homeTeam */
 
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(numInnings, inning, getInningScore) {
+  let homeFinal = 0;
+  let awayFinal = 0;
+  const finalScore = [];
+  for (let i = 0; i < numInnings; i++) {
+    let inningTotal = getInningScore(1, inning);
+    finalScore.push(`Inning ${i + 1}: ${inningTotal.Away} - ${inningTotal.Home}`);
+    homeFinal += inningTotal.Home;
+    awayFinal += inningTotal.Away;
+  }
+  finalScore.push(`Final Score: ${awayFinal} - ${homeFinal}`);
+  return finalScore;
 }
-
+console.log(scoreboard(9, 9, getInningScore(1,9));
 
